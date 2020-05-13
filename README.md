@@ -1,21 +1,15 @@
 # babel-import-demo
 
-## Project setup
-```
-npm install
-```
+按需加载Demo
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+问题：在按需加载前提条件下，全局注册Componnets和多个页面局部注册Componnets对打包大小是否有影响？
 
-### Compiles and minifies for production
-```
-npm run build
-```
+过程实验：
+1. 多个页面对a-button都是局部注册（源码中就是改方式），看最终打包大小
+1. 对a-button全局注册，看最终打包大小
 
-### Lints and fixes files
-```
-npm run lint
-```
+结果：app.js基本都是12k，chunk-vendors都是927k，一致。
+
+结论：
+1. 对于多页面共享组件，全局引入和局部引入都是一致的，对打包大小没有影响。
+1. 在没有歧义情况下（知道局部组件的来源），推荐使用全局注册
